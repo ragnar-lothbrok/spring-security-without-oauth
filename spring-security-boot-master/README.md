@@ -51,3 +51,10 @@ http://localhost:9092/user
 Once authenticated it will work fine from browser but from HTTP client
 you have to send header X-API-TOKEN and value of token which we will get once authenticated if token is not valid login page will appear.
 
+
+AT UI
+
+http://localhost:9092/loginuser
+
+http://localhost:9092/logoutuser
+
