@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.context.SecurityContextRepository;
 
+import com.demo.geek.security.CustomLogoutSuccessHandler;
 import com.demo.geek.security.CustomUserDetailsService;
 import com.demo.geek.security.TokenAuthenticationProvider;
 import com.demo.geek.security.TokenHeaderWriter;
@@ -28,6 +30,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new StandardPasswordEncoder("secret");
 	}
 
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/css/", "/js/", "/img/*", "/*.html", "*.js", "/userlogin/**");
+	}
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(tokenAuthenticationProvider());
@@ -35,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public AuthenticationProvider tokenAuthenticationProvider() {
-		return new TokenAuthenticationProvider(userDetailsService(),passwordEncoder());
+		return new TokenAuthenticationProvider(userDetailsService(), passwordEncoder());
 	}
 
 	@Bean
@@ -47,11 +54,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.exceptionHandling().and().formLogin().loginProcessingUrl("/login").permitAll().and().logout()
-				.logoutUrl("/logout").deleteCookies("JSESSIONID").permitAll().and().csrf().disable().securityContext()
+				.logoutUrl("/logout").logoutSuccessHandler(new CustomLogoutSuccessHandler()).deleteCookies("JSESSIONID")
+				.permitAll().and().csrf().disable().securityContext()
 				.securityContextRepository(tokenSecurityContextRepository());
 
-		http.headers().addHeaderWriter(new TokenHeaderWriter()).and().authorizeRequests().antMatchers("/user")
+		http.headers().addHeaderWriter(new TokenHeaderWriter()).and().authorizeRequests().antMatchers("/test")
 				.authenticated();
+
+		http.headers().frameOptions().disable();
 	}
 
 	@Bean

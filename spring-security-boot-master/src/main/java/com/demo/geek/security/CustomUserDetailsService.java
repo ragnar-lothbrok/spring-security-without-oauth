@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.demo.geek.config.UserRepository;
 import com.demo.geek.domain.User;
+import com.demo.geek.repo.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {

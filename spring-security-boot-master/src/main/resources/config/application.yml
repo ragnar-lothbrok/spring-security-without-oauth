@@ -7,6 +7,9 @@ management:
   contextPath: /admin
 
 spring:
+    url:
+        logout: http://localhost:9092/logout
+        login: http://localhost:9092/login
     datasource:
         url: jdbc:mysql://localhost:3306/jbeat
         driverClassName: com.mysql.jdbc.Driver

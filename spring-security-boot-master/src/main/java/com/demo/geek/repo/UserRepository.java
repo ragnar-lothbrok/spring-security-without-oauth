@@ -1,4 +1,4 @@
-package com.demo.geek.config;
+package com.demo.geek.repo;
 
 import java.util.ArrayList;
 import java.util.List;
