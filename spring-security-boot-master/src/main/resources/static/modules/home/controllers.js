@@ -11,6 +11,12 @@ angular.module('Home')
 				'AuthenticationService',
 				function($scope, $rootScope, $location, AuthenticationService) {
 
+					
+					var token = localStorage.getItem('X-API-TOKEN');
+					if(token == undefined){
+						$location.path('#/login');
+					}
+					
 					$scope.logout = function() {
 
 						AuthenticationService.userlogout().then(
@@ -27,5 +33,7 @@ angular.module('Home')
 									$scope.error = errResponse.data.message;
 								})
 					};
+					
+					
 
 				} ]);

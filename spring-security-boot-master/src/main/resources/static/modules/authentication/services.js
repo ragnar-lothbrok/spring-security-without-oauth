@@ -18,7 +18,7 @@ angular.module('Authentication', []).factory(
 						},
 
 						userlogout : function() {
-							return $http.post(
+							return $http.get(
 									constant.logoutUrl,
 									{
 										headers : {

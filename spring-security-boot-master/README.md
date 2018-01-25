@@ -54,6 +54,11 @@ you have to send header X-API-TOKEN and value of token which we will get once au
 
 AT UI
 
+http://localhost:9092/index.html#/login
+
+
+APIS
+
 http://localhost:9092/loginuser
 
 http://localhost:9092/logoutuser

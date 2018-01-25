@@ -20,12 +20,12 @@ angular.module('BasicHttpAuthExample', [
             hideMenus: true
         })
  
-        .when('/home', {
+        .when('/', {
             controller: 'HomeController',
             templateUrl: 'modules/home/views/home.html'
         })
  
-        .otherwise({ redirectTo: '/home' });
+        .otherwise({ redirectTo: '/login' });
 }])
 
  .constant('constant', {

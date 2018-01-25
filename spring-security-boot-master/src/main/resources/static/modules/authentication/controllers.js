@@ -23,7 +23,7 @@ angular.module('Authentication')
 		                if(responseData.data.token != undefined) {
 		                	localStorage.setItem('X-API-TOKEN',responseData.data.token);
 		                	$scope.dataLoading = false;
-		                	location.hash = "/index.html#/home";
+		                	$location.path('/');
 		                }
 					},
 					function(errResponse) {
